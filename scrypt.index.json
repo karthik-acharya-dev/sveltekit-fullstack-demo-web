@@ -1,0 +1,1 @@
+{"scryptBase":"artifacts","bindings":[{"symbol":"Root","path":"root.scrypt"}]}

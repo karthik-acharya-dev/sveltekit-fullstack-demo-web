@@ -1,0 +1,36 @@
+{
+    "version": 9,
+    "compilerVersion": "1.19.2+commit.c3a20a0",
+    "contract": "Root",
+    "md5": "0086ed6bd171bcb22f444bb8632070d4",
+    "structs": [],
+    "library": [],
+    "alias": [],
+    "abi": [
+        {
+            "type": "function",
+            "name": "unlock",
+            "index": 0,
+            "params": [
+                {
+                    "name": "root",
+                    "type": "int"
+                }
+            ]
+        },
+        {
+            "type": "constructor",
+            "params": [
+                {
+                    "name": "sq",
+                    "type": "int"
+                }
+            ]
+        }
+    ],
+    "stateProps": [],
+    "buildType": "debug",
+    "file": "file:///Users/rohansharan/Documents/code/tsoc%202024/sveltekit-live-fullstack-demo/artifacts/root.scrypt",
+    "hex": "00<sq>610079527a75517a7561517952799551799c7777",
+    "sourceMapFile": ""
+}

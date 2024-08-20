@@ -1,0 +1,10 @@
+
+contract Root {
+  int square;
+  constructor(int sq) {
+    this.square = sq;
+  }
+  public function unlock(int root) {
+    require(root * root == this.square);
+  }
+}

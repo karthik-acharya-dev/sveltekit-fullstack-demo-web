@@ -42,6 +42,30 @@ async function seed() {
 }
 
 export const actions = {
+  update: async ({ request }) => {
+    const data = await request.formData();
+    const db = createPool({ connectionString: POSTGRES_URL });
+    const client = await db.connect();
+
+    const id = data.get('id');
+    const email = data.get('email');
+    
+    try {
+      // Update the user's email based on their ID
+      await client.sql`
+        UPDATE names
+        SET email = ${email}
+        WHERE id = ${id};
+      `;
+      
+      return { success: true };
+    } catch (error) {
+      console.error('Error updating user:', error);
+      return { success: false };
+    } finally {
+      client.release();
+    }
+  },
   delete: async ({ request }) => {
     const data = await request.formData();
     const id = data.get('id');

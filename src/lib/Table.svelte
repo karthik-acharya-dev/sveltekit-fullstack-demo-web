@@ -1,3 +1,7 @@
+<script>
+  export let names;
+</script>
+
 <div
   class="mt-10 pt-10 w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
 >

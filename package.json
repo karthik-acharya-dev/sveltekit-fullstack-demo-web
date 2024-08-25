@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
-    "build": "bun run build",
+    "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
@@ -26,8 +26,12 @@
   },
   "type": "module",
   "dependencies": {
+<<<<<<< HEAD
     "@bsv/sdk": "^1.1.19",
     "@sveltejs/adapter-vercel": "^5.4.3",
+=======
+    "@bsv/sdk": "^1.1.16",
+>>>>>>> cb4a1357b3e02a9f2feab4e4bbad8805439ad6c6
     "@vercel/postgres": "^0.9.0",
     "neucron-sdk": "^0.2.3",
     "neucron-signer": "^1.3.2",

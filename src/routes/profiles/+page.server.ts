@@ -90,9 +90,15 @@ export const actions = {
     const id = data.get('id');
     const name = data.get('name');
     const email = data.get('email');
+<<<<<<< HEAD
     
     try {
       // Update both name and email based on the user's ID
+=======
+
+    try {
+      // Update the user's name and email based on their ID
+>>>>>>> cb4a1357b3e02a9f2feab4e4bbad8805439ad6c6
       await client.sql`
         UPDATE names
         SET name = ${name}, email = ${email}
@@ -107,7 +113,10 @@ export const actions = {
       client.release();
     }
   },
+<<<<<<< HEAD
   
+=======
+>>>>>>> cb4a1357b3e02a9f2feab4e4bbad8805439ad6c6
   // Other actions (delete, create) ...
 
 

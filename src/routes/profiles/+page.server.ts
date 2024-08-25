@@ -88,13 +88,14 @@ export const actions = {
     const client = await db.connect();
 
     const id = data.get('id');
+    const name = data.get('name');
     const email = data.get('email');
-    
+
     try {
-      // Update the user's email based on their ID
+      // Update the user's name and email based on their ID
       await client.sql`
         UPDATE names
-        SET email = ${email}
+        SET name = ${name}, email = ${email}
         WHERE id = ${id};
       `;
       

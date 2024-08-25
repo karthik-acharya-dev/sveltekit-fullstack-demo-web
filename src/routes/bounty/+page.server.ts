@@ -1,5 +1,5 @@
 import { Root } from "../../contracts/root";
-import { DefaultProvider, sha256, bsv, toByteString } from "scrypt-ts";
+import { DefaultProvider, bsv } from "scrypt-ts";
 import { NeucronSigner } from "neucron-signer";
 import artifact from "../../../artifacts/root.json"
 
@@ -23,9 +23,9 @@ export const actions = {
         "smart lock deployed : https://whatsonchain.com/tx/" + deployTx.id
       );
 
-      return { success: true, txid: deployTx.id };
+      return { deployed: true, txid: deployTx.id };
     } catch (error:any) {
-      return { success: false, txid: error.message };
+      return { deployed: false, txid: error.message };
     }
   },
 

@@ -51,18 +51,18 @@
         </button>
       </div>
     </form>
-    {#if form?.success}
+    {#if form?.deployed}
       <!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-      <p class="pt-2 text-green-400 font-semibold">
+      <p class="pt-2 text-green-600 font-semibold">
         Bounty was deployed successfully: <a
           class="text-indigo-500 underline font-semibold"
           target="_blank"
           href={`https://whatsonchain.com/tx/${form?.txid}`}>Trasaction Link</a
         >!
       </p>
-      {:else if form?.deployed === false}
-      <p >{form?.txid}</p>
+    {:else if form?.deployed === false}
+      <p>{form?.txid}</p>
     {/if}
   </div>
 
@@ -113,7 +113,7 @@
       </p>
     {:else if form?.success === false}
       <p class="pt-2 text-red-600 font-semibold">
-        {form?.txid} 
+        {form?.txid}
       </p>
     {/if}
   </div>

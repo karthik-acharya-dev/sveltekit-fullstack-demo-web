@@ -2,22 +2,24 @@
   import Table from "$lib/Table.svelte";
 
   /** @type {import('./$types').PageData} */
-  export let data;
-  console.log("hello", data.names);
+  export let data: any;
 
   /** @type {import('./$types').ActionData} */
-  export let form;
+  export let form: any;
 </script>
 
 <Table names={data.names} />
 
-<div class="mt-10 pt-10 w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg">
-  <form method="POST" action="?/update">
+<div
+  class="mt-10 pt-10 w-full max-w-xl p-5 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
+>
+  <form method="POST" action="?/create">
     <div class="flex flex-wrap -mx-3 mb-2">
-      <input type="hidden" name="id" value="{/* provide the id here */}" />
-
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="name">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="grid-city"
+        >
           Name
         </label>
         <input
@@ -26,12 +28,13 @@
           type="text"
           placeholder="Enter name"
           name="name"
-          value="{/* prefill the name here */}"
         />
       </div>
-
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="email">
+        <label
+          class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+          for="grid-city"
+        >
           Email
         </label>
         <input
@@ -40,20 +43,26 @@
           type="text"
           placeholder="Enter email"
           name="email"
-          value="{/* prefill the email here */}"
         />
       </div>
-
+      <!-- <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
+              Email
+            </label>
+          </div> -->
       <button
         type="submit"
         class="bg-yellow-500 hover:bg-blue-700 text-white font-bold mt-5 ml-2 px-2 rounded"
       >
-        Update Applicant
+        Create Applicant
       </button>
     </div>
   </form>
-
   {#if form?.success}
-    <p class="pt-2">Applicant details updated successfully!</p>
+    <!-- this message is ephemeral; it exists because the page was rendered in
+		   response to a form submission. it will vanish if the user reloads -->
+    <p class="pt-2 text-green-600 font-semibold">Added new Applicant!</p>
+  {:else if form?.deleted}
+    <p class="pt-2 text-green-600 font-semibold">Deleted Successfully!</p>
   {/if}
 </div>

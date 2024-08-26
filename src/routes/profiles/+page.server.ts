@@ -6,7 +6,7 @@ export async function load() {
   const db = createPool({ connectionString: POSTGRES_URL })
 
   try {
-    const { rows: names } = await db.query('SELECT * FROM names')
+    const { rows: names } = await db.query('SELECT * FROM names order by id')
     return {
       names: names,
     }
@@ -16,9 +16,9 @@ export async function load() {
       )
       // Table is not created yet
       await seed()
-      const { rows: names } = await db.query('SELECT * FROM names')
+      const { rows: names } = await db.query('SELECT * FROM names order by id')
       return {
-        names: names
+        users: names
       }
     } 
 }
@@ -61,77 +61,64 @@ async function seed() {
   }
 }
 
-/** @type {import('./$types').Actions} */
-// export const actions = {
-	
-//   update: async ({ request }) => {
-//     const data = await request.formData();
-//     const db = createPool({ connectionString: POSTGRES_URL })
-//     const client = await db.connect();
-
-//     const email = data.get('email');
-// 		const name = data.get('name');
-
-//     const updateUser = await client.sql`
-//     UPDATE names
-//     SET email = ${email}, name = ${name}
-//     WHERE id = ${id};`
-	
-// 		return { success: true };
-// 	},
-
-// gpt
-export const actions = {
-  update: async ({ request }) => {
-    const data = await request.formData();
-    const db = createPool({ connectionString: POSTGRES_URL });
+async function updateUser(user: { id: any; name: any; email: any }) {
+    console.log('user', user);
+    const db = createPool({ connectionString: POSTGRES_URL })
     const client = await db.connect();
 
-    const id = data.get('id');
-    const name = data.get('name');
-    const email = data.get('email');
-<<<<<<< HEAD
-    
-    try {
-      // Update both name and email based on the user's ID
-=======
+    const result = await client.sql`UPDATE names SET name = ${user.name}, email = ${user.email} WHERE id = ${user.id}`
 
-    try {
-      // Update the user's name and email based on their ID
->>>>>>> cb4a1357b3e02a9f2feab4e4bbad8805439ad6c6
-      await client.sql`
-        UPDATE names
-        SET name = ${name}, email = ${email}
-        WHERE id = ${id};
-      `;
-      
-      return { success: true };
-    } catch (error) {
-      console.error('Error updating user:', error);
-      return { success: false };
-    } finally {
-      client.release();
+    return {
+      result
     }
-  },
-<<<<<<< HEAD
-  
-=======
->>>>>>> cb4a1357b3e02a9f2feab4e4bbad8805439ad6c6
-  // Other actions (delete, create) ...
+}
 
+/** @type {import('./$types').Actions} */
+export const actions = {
+	
+  update: async ({ request }) => {
+    const req = await request.formData();
+
+    const id = req.get('id');
+    const name = req.get('name');
+    const email = req.get('email');
+
+    const data = {
+      id, name, email
+    }
+
+    let updateRes = {
+      error : false, email : email, name, messsage : ''
+    }
+
+    try {
+      const res = await updateUser(data);
+      console.log('api request ran');
+      console.log(res);
+
+
+    } catch (error) {
+        console.log('api request errored');
+        console.log(error)
+        updateRes.error = true;
+        updateRes.messsage = (error as Error).message;
+    }finally{
+      return updateRes
+    }
+	},
 
   delete: async ({ request }) => {
     const data = await request.formData();
     const db = createPool({ connectionString: POSTGRES_URL })
     const client = await db.connect();
 
-    const id = data.get('id');
+    const id = String(data.get('id'));
 
     const deleteUser = await client.sql`
     DELETE FROM names
     WHERE id = ${id};`
 	
-		return { success: true };
+		return { deleted: true };
 	},
 
 	create: async ({request}) => {
@@ -143,13 +130,10 @@ export const actions = {
 		const name = data.get('name');
 
     const createUser = await client.sql`
-      INSERT INTO names (name, email)
-      VALUES (${name}, ${email})
-      ON CONFLICT (email) DO NOTHING;
-    `
+          INSERT INTO names (name, email)
+          VALUES (${String(name)}, ${String(email)})
+          ON CONFLICT (email) DO NOTHING;
+        `
     return { success: true };
 	}
 };
-
-
-
